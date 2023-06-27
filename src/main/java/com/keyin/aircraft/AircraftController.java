@@ -47,6 +47,7 @@ public class AircraftController {
         aircraftService.addAircraft(aircraft);
     }
 
+
     @DeleteMapping("/aircraft/deleteAircraft/{id}")
     public List<Aircraft> deleteAirportById(@PathVariable int id) {
         Aircraft aircraftForAction = new Aircraft();
@@ -75,7 +76,7 @@ public class AircraftController {
     @PostMapping("/aircraft/addAllowedAirport")
     public Aircraft addAirport(@RequestParam String aircraftToSearch, String airportToSearch){
         historyService.addToHistory("addToAllowedList()", "/aircraft/addAllowedAirport", LocalDateTime.now());
-        return aircraftService.addToAllowedList(aircraftToSearch, airportToSearch);
+       return aircraftService.addToAllowedList(aircraftToSearch, airportToSearch);
     }
 
     @PostMapping("/aircraft/removeAllowedAirport")
