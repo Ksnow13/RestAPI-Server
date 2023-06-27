@@ -17,4 +17,7 @@ public class ActionController {
         actionService.undoAction();
     }
 
+    @DeleteMapping("/redo")
+    public void redoAction() {actionService.redoAction();}
+
 }

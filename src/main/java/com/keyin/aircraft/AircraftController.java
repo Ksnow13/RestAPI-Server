@@ -81,6 +81,7 @@ public class AircraftController {
 
         String url = "/aircraft/updateAircraft/" + String.valueOf(id);
         historyService.addToHistory("updateAircraft()", url, LocalDateTime.now());
+        actionService.setAircraftPlaceHolder(aircraft);
         return aircraftService.updateAircraft(id, aircraft);
     }
 

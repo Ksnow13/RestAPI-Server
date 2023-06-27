@@ -18,6 +18,14 @@ public class ActionService {
 
     private Stack<Action> redoActionStack = new Stack<>();
 
+    //------------------------------------------------------------------------------------------------------------------
+    private Aircraft aircraftPlaceHolder;
+
+    public void setAircraftPlaceHolder(Aircraft aircraftPlaceHolder) {
+        this.aircraftPlaceHolder = aircraftPlaceHolder;
+    }
+   //-------------------------------------------------------------------------------------------------------------------
+
     @Autowired
     public AircraftService aircraftService; // Autowired to get the data from AircraftService
 
@@ -33,17 +41,15 @@ public class ActionService {
     }
 
     public void undoAction() {
-
         // works somewhat correctly, doesn't like deleting last object in stack
         // map it out on paper to understand the undo method better
-
         // maybe use a switch statement instead of if's
-
 
         if(actionStack.size() > 0) {
             if (actionStack.peek().getOperation() == "create") {
                 if (actionStack.peek().getObjectName() == "aircraft") {
                     aircraftService.deleteAircraftById((Integer) actionStack.peek().getParameters().get("id"));
+                    redoActionStack.push(actionStack.peek());
                     actionStack.pop();
                 }
             }
@@ -57,6 +63,7 @@ public class ActionService {
                     aircraftToReAdd.setNumberOfPassengers((Integer) actionStack.peek().getParameters().get("numberOfPassengers"));
                     aircraftToReAdd.setAllowedAirportList((List<Airport>) actionStack.peek().getParameters().get("allowedAirportList"));
                     aircraftService.addAircraft(aircraftToReAdd);
+                    redoActionStack.push(actionStack.peek());
                     actionStack.pop();
                 }
             }
@@ -70,6 +77,7 @@ public class ActionService {
                     aircraftUndoUpdate.setNumberOfPassengers((Integer) actionStack.peek().getParameters().get("numberOfPassengers"));
                     aircraftUndoUpdate.setAllowedAirportList((List<Airport>) actionStack.peek().getParameters().get("allowedAirportList"));
                     aircraftService.updateAircraft(aircraftUndoUpdate.getId(), aircraftUndoUpdate);
+                    redoActionStack.push(actionStack.peek());
                     actionStack.pop();
                 }
             }
@@ -78,5 +86,44 @@ public class ActionService {
             System.out.println("Sorry the stack is empty.");
         }
 
+    }
+
+    public void redoAction(){
+        if (redoActionStack.size() > 0) {
+            if(redoActionStack.peek().getOperation() == "create"){
+                if(redoActionStack.peek().getObjectName() == "aircraft"){
+                    Aircraft aircraftToAdd = new Aircraft();
+                    aircraftToAdd.setId((Integer) redoActionStack.peek().getParameters().get("id"));
+                    aircraftToAdd.setType((String) actionStack.peek().getParameters().get("type"));
+                    aircraftToAdd.setAirlineName((String) actionStack.peek().getParameters().get("airlineName"));
+                    aircraftToAdd.setNumberOfPassengers((Integer) actionStack.peek().getParameters().get("numberOfPassengers"));
+                    aircraftToAdd.setAllowedAirportList((List<Airport>) actionStack.peek().getParameters().get("allowedAirportList"));
+                    aircraftService.addAircraft(aircraftToAdd);
+                    actionStack.push(redoActionStack.peek());
+                    redoActionStack.pop();
+                }
+            }
+
+            if (redoActionStack.peek().getOperation() == "delete"){
+                if(redoActionStack.peek().getObjectName() == "aircraft") {
+                    aircraftService.deleteAircraftById((Integer) redoActionStack.peek().getParameters().get("id"));
+                    actionStack.push(redoActionStack.peek());
+                    redoActionStack.pop();
+                }
+            }
+
+            // not working correctly (aircraft not found)
+            if (redoActionStack.peek().getOperation() == "update") {
+                if (redoActionStack.peek().getObjectName() == "aircraft"){
+                    System.out.println("here is the id: " + aircraftPlaceHolder.getId());
+                    aircraftService.updateAircraft(aircraftPlaceHolder.getId(), aircraftPlaceHolder);
+                    actionStack.push(redoActionStack.peek());
+                    redoActionStack.pop();
+                }
+            }
+
+        } else {
+            System.out.println("There is nothing to redo");
+        }
     }
 }
