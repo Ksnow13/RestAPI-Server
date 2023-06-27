@@ -6,6 +6,7 @@ import com.keyin.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -15,10 +16,13 @@ public class ActionService {
 
     private Stack<Action> actionStack = new Stack<>();
 
+    private Stack<Action> redoActionStack = new Stack<>();
+
     @Autowired
     public AircraftService aircraftService; // Autowired to get the data from AircraftService
 
     public Stack<Action> getActionStack() {
+
         return actionStack;
     }
 
@@ -34,6 +38,7 @@ public class ActionService {
         // map it out on paper to understand the undo method better
 
         // maybe use a switch statement instead of if's
+
 
         if(actionStack.size() > 0) {
             if (actionStack.peek().getOperation() == "create") {
@@ -55,6 +60,20 @@ public class ActionService {
                     actionStack.pop();
                 }
             }
+
+            if (actionStack.peek().getOperation() == "update"){
+                if (actionStack.peek().getObjectName() == "aircraft"){
+                    Aircraft aircraftUndoUpdate = new Aircraft();
+                    aircraftUndoUpdate.setId((Integer) actionStack.peek().getParameters().get("id"));
+                    aircraftUndoUpdate.setType((String) actionStack.peek().getParameters().get("type"));
+                    aircraftUndoUpdate.setAirlineName((String) actionStack.peek().getParameters().get("airlineName"));
+                    aircraftUndoUpdate.setNumberOfPassengers((Integer) actionStack.peek().getParameters().get("numberOfPassengers"));
+                    aircraftUndoUpdate.setAllowedAirportList((List<Airport>) actionStack.peek().getParameters().get("allowedAirportList"));
+                    aircraftService.updateAircraft(aircraftUndoUpdate.getId(), aircraftUndoUpdate);
+                    actionStack.pop();
+                }
+            }
+
         } else {
             System.out.println("Sorry the stack is empty.");
         }
