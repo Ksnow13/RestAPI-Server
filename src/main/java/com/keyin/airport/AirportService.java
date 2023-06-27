@@ -1,7 +1,6 @@
 package com.keyin.airport;
 
 
-import com.keyin.aircraft.AircraftService;
 import com.keyin.city.City;
 import com.keyin.city.CityService;
 import org.springframework.stereotype.Service;
