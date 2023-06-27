@@ -68,6 +68,17 @@ public class AircraftController {
 
     @PutMapping("/aircraft/updateAircraft/{id}")
     public List<Aircraft> updateAircraft(@PathVariable int id, @RequestBody Aircraft aircraft){
+        Aircraft aircraftForAction = new Aircraft();
+        List<Aircraft> aircraftlist = aircraftService.getAllAircraft();
+        for (Aircraft aircraftToFind : aircraftlist){
+            if (aircraftToFind.getId() == id) {
+                aircraftForAction = aircraftToFind;
+            }
+        }
+        if (aircraftForAction != null) {
+            actionService.addAction("aircraft", "update",Map.of("id", aircraftForAction.getId(), "type", aircraftForAction.getType(),"airlineName", aircraftForAction.getAirlineName(), "numberOfPassengers", aircraftForAction.getNumberOfPassengers(), "allowedAirportList", aircraftForAction.getAllowedAirportList()));
+        }
+
         String url = "/aircraft/updateAircraft/" + String.valueOf(id);
         historyService.addToHistory("updateAircraft()", url, LocalDateTime.now());
         return aircraftService.updateAircraft(id, aircraft);
