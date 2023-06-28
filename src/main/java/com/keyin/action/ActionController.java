@@ -18,6 +18,8 @@ public class ActionController {
     }
 
     @DeleteMapping("/redo")
-    public void redoAction() {actionService.redoAction();}
+    public void redoAction(){
+        actionService.redoAction();
+    }
 
 }

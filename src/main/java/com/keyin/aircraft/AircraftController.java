@@ -1,7 +1,6 @@
 package com.keyin.aircraft;
 
 import com.keyin.action.ActionService;
-import com.keyin.airport.Airport;
 import com.keyin.history.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +15,9 @@ public class AircraftController {
     @Autowired
     private AircraftService aircraftService;
     @Autowired
-    private HistoryService historyService; //-------------------------------------
+    private HistoryService historyService;
     @Autowired
-    private ActionService actionService; //-------------------------------------
-
+    private ActionService actionService;
 
     @GetMapping("/aircraft")
     public List<Aircraft> getAllAircraft() {
@@ -47,7 +45,6 @@ public class AircraftController {
         aircraftService.addAircraft(aircraft);
     }
 
-
     @DeleteMapping("/aircraft/deleteAircraft/{id}")
     public List<Aircraft> deleteAirportById(@PathVariable int id) {
         Aircraft aircraftForAction = new Aircraft();
@@ -62,7 +59,7 @@ public class AircraftController {
         }
 
         String url = "/aircraft/deleteAircraft/" + String.valueOf(id);
-        historyService.addToHistory("searchAircraft()", url, LocalDateTime.now());
+        historyService.addToHistory("deleteAircraft()", url, LocalDateTime.now());
         return aircraftService.deleteAircraftById(id);
     }
 
@@ -81,7 +78,6 @@ public class AircraftController {
 
         String url = "/aircraft/updateAircraft/" + String.valueOf(id);
         historyService.addToHistory("updateAircraft()", url, LocalDateTime.now());
-        actionService.setAircraftPlaceHolder(aircraft);
         return aircraftService.updateAircraft(id, aircraft);
     }
 
