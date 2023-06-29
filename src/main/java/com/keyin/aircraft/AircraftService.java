@@ -50,6 +50,13 @@ public class AircraftService {
         aircraft4.setAirlineName("West Jet");
         aircraft4.setNumberOfPassengers(25);
         aircraftList.add(aircraft4);
+
+        Aircraft aircraft5 = new Aircraft();
+        aircraft5.setId(5);
+        aircraft5.setType("Boeing 402");
+        aircraft5.setAirlineName("East Jet");
+        aircraft5.setNumberOfPassengers(90);
+        aircraftList.add(aircraft5);
     }
 
     public List<Aircraft> getAllAircraft() {
