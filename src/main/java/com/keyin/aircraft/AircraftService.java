@@ -43,6 +43,13 @@ public class AircraftService {
         aircraft3.setAirlineName("Air Canada");
         aircraft3.setNumberOfPassengers(70);
         aircraftList.add(aircraft3);
+
+        Aircraft aircraft4 = new Aircraft();
+        aircraft4.setId(4);
+        aircraft4.setType("Boeing 709");
+        aircraft4.setAirlineName("West Jet");
+        aircraft4.setNumberOfPassengers(25);
+        aircraftList.add(aircraft4);
     }
 
     public List<Aircraft> getAllAircraft() {
