@@ -158,7 +158,6 @@ public class AircraftService {
         return aircraftList;
     }
 
-    // doesn't like it when you delete the last item in the list that makes it empty
     public List<Aircraft> deleteAircraftById(int id) {
 
         boolean found = false;
@@ -177,11 +176,6 @@ public class AircraftService {
         return aircraftList;
     }
 
-
-    //------------------------------------------------------------------------------------------------------------------
-
-    // fix the problem for searching aircraft that doesn't exist
-    // fix so you cant add duplicates
     public Aircraft addToAllowedList(String aircraftToAdd, String airportToAdd){
         List<Airport> allAirports = new ArrayList<>();
         AirportService airportService = new AirportService();
@@ -216,7 +210,6 @@ public class AircraftService {
         return foundAircraft;
     }
 
-    // doesn't like when i delete from end of list
     public Aircraft removeFromAllowedList(String aircraftSelected, String airportToRemove) {
         List<Airport> allAirports = new ArrayList<>();
         AirportService airportService = new AirportService();
