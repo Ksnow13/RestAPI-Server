@@ -45,6 +45,56 @@ public class PassengerService {
         passenger3.setLastName("Power");
         passenger3.setPhoneNumber("(709) 683-9911");
         passengerList.add(passenger3);
+
+        Passenger passenger4 = new Passenger();
+        passenger4.setId(4);
+        passenger4.setFirstname("Kayleigh");
+        passenger4.setLastName("McGrath");
+        passenger4.setPhoneNumber("(709) 683-1231");
+        passenger4.addToAircraftIdsList(4);
+        passenger4.addToAircraftIdsList(5);
+        passenger4.addToAirportIdsList(4);
+        passenger4.addToAirportIdsList(6);
+        passengerList.add(passenger4);
+
+        Passenger passenger5 = new Passenger();
+        passenger5.setId(5);
+        passenger5.setFirstname("John");
+        passenger5.setLastName("Doe");
+        passenger5.setPhoneNumber("(709) 555-6675");
+        passenger5.addToAircraftIdsList(7);
+        passenger5.addToAircraftIdsList(8);
+        passenger5.addToAirportIdsList(8);
+        passenger5.addToAirportIdsList(9);
+        passengerList.add(passenger5);
+
+        Passenger passenger6 = new Passenger();
+        passenger6.setId(6);
+        passenger6.setFirstname("Sarah");
+        passenger6.setLastName("Dove");
+        passenger6.setPhoneNumber("(709) 786-5565");
+        passenger6.addToAircraftIdsList(3);
+        passenger6.addToAircraftIdsList(2);
+        passenger6.addToAirportIdsList(1);
+        passenger6.addToAirportIdsList(2);
+        passenger6.addToAirportIdsList(2);
+        passengerList.add(passenger6);
+
+        Passenger passenger7 = new Passenger();
+        passenger7.setId(7);
+        passenger7.setFirstname("Sarah");
+        passenger7.setLastName("Dove");
+        passenger7.setPhoneNumber("(709) 786-5565");
+        passenger7.addToAircraftIdsList(1);
+        passenger7.addToAirportIdsList(1);
+        passengerList.add(passenger7);
+
+        Passenger passenger8 = new Passenger();
+        passenger8.setId(8);
+        passenger8.setFirstname("Sarah");
+        passenger8.setLastName("Dove");
+        passenger8.setPhoneNumber("(709) 786-5565");
+        passengerList.add(passenger8);
     }
 
     public List<Passenger> getAllPassenger() {
