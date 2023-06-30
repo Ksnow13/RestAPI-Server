@@ -15,9 +15,9 @@ public class AirportController {
     @Autowired
     private AirportService airportService;
     @Autowired
-    private HistoryService historyService; //-------------------------------------
+    private HistoryService historyService;
     @Autowired
-    private ActionService actionService; //-------------------------------------
+    private ActionService actionService;
 
     @GetMapping("/airport")
     public List<Airport> getAllAirport() {

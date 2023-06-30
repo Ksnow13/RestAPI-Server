@@ -22,8 +22,7 @@ public class ActionService {
     private Stack<Action> redoActionStack = new Stack<>();
 
     @Autowired
-    private AircraftService aircraftService; // Autowired to get the data from AircraftService
-    // maybe make these two public ???? *******
+    private AircraftService aircraftService;
     @Autowired
     private AirportService airportService;
     @Autowired
@@ -116,8 +115,6 @@ public class ActionService {
 
     }
 
-    // doesn't like when u reach the end
-    // and cant get update to work with redo **
     public void redoAction() {
         if(redoActionStack.size() > 0) {
 

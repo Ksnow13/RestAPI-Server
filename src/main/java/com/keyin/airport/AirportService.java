@@ -15,8 +15,6 @@ public class AirportService {
 
     private List<City> cityList = new ArrayList<>();
 
-    // make a method to do the population instead of in the constructor
-
     public AirportService() {
         populateList();
     }

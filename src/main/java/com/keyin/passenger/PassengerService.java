@@ -114,7 +114,6 @@ public class PassengerService {
         return foundPassenger;
     }
 
-    // fix this so it isn't case-sensitive
     public List<Passenger> searchPassenger(String toSearch){
 
         List<Passenger> foundList = new ArrayList<>();
